@@ -1,0 +1,72 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+
+          <app-selectors #selectors class="row pl-3 pr-3">
+
+            <select #nameSelector class="col-2 form-control mb-3 mr-3">
+              <option *ngFor="let item of conditionSources.Name" [value]="item.value">{{ item.label }}</option>
+            </select>
+            <select #operationSelector class="col-2 form-control mb-3" [hidden]="!nameSelector.value">
+              <option *ngFor="let item of conditionSources.Operation[nameSelector.value]" [value]="item.value">{{ item.label }}</option>
+            </select>
+
+            <div class="col mb-3 c-date" *ngIf="nameSelector.value === 'Expiration'">
+              <app-selectors-case class="d-inline-block mr-3" #startSelector label="Start" name="start" instances="1" selector="date" [container]="selectors"></app-selectors-case>
+              <app-selectors-case class="d-inline-block mr-3" #endSelector label="End" name="end" instances="1" selector="date" [container]="selectors"></app-selectors-case>
+              <button class="btn" (click)="addCondition(nameSelector.value, operationSelector.value, [startSelector, endSelector])">Add</button>
+            </div>
+
+            <div class="col-2 mb-3" *ngIf="nameSelector.value && nameSelector.value != 'Expiration'">
+              <app-selectors-case class="d-inline-block mr-3" #valueSelector label="Value" name="Value" instances="1" [conditions]="[null, 'or']" [selector]="conditionSources.Value[nameSelector.value]?.selector" [container]="selectors" [source]="conditionSources.Value[nameSelector.value]?.source || []"></app-selectors-case>
+              <button class="btn" (click)="addCondition(nameSelector.value, operationSelector.value, valueSelector)">Add</button>
+            </div>
+
+            <div class="d-inline-block mr-3 mb-3" *ngIf="conditions.length">
+              <button class="btn btn-success" (click)="schedule()">Schedule</button>
+            </div>
+
+            <div class="clearfix w-100"></div>
+
+            <button class="btn btn-primary mr-3 mb-3 pr-3 c-selection" *ngFor="let item of conditions; let i = index" (click)="removeItem(conditions, i)">
+              <span class="mr-3">{{ item.name.label }} {{ item.operation.label }} {{ showItem(item.value) }} </span>
+              <i class="fa fa-times"></i>
+            </button>
+
+          </app-selectors>
+
+          <div class="alert alert-warning" *ngFor="let error of errors">
+            {{ error }}
+          </div>
+
+          <div class="table-responsive" [hidden]="!items.length">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Stock</th>
+                  <th>Strike</th>
+                  <th>Expiration</th>
+                  <th>Ask</th>
+                  <th>Bid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of items">
+                  <td>{{ item.OptionStock }}</td>
+                  <td>{{ item.OptionStrike }}</td>
+                  <td>{{ item.OptionExpiration }}</td>
+                  <td>{{ item.OptionAsk }}</td>
+                  <td>{{ item.OptionBid }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

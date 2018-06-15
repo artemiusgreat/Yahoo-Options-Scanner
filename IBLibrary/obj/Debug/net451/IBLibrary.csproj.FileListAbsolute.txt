@@ -1,0 +1,13 @@
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\IBLibrary.dll.config
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\IBLibrary.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\IBLibrary.pdb
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\EntityFramework.SqlServer.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\EntityFramework.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\CSharpAPI.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\net451\CSharpAPI.pdb
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.csprojResolveAssemblyReference.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.csproj.CoreCompileInputs.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.AssemblyInfoInputs.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.AssemblyInfo.cs
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\net451\IBLibrary.pdb

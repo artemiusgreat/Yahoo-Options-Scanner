@@ -1,0 +1,5 @@
+<ng-container [formGroup]="group">
+  <select class="form-control" (change)="setSelection($event)">
+    <option *ngFor="let option of source" [value]="option?.value">{{ option?.label }}</option>
+  </select>
+</ng-container>

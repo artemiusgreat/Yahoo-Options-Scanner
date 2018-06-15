@@ -1,0 +1,12 @@
+<ng-container [formGroup]="group">
+
+  <span class="input-group" (click)="onShowCalendar($event)">
+    <input class="form-control" ngbDatepicker #dateControl="ngbDatepicker" [placeholder]="label" (dateSelect)="onSelectDate($event)" />
+    <span class="input-group-append">
+      <span class="input-group-text pt-2 pb-2 pr-3">
+        <span class="fa fa-calendar"></span>
+      </span>
+    </span>
+  </span>
+
+</ng-container>

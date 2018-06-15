@@ -1,0 +1,18 @@
+<ng-container [formGroup]="group">
+
+    <input #selector
+           class="form-control"
+           [placeholder]="label"
+           [editable]="false"
+           [focusFirst]="false"
+           [resultTemplate]="resultTemplate"
+           [ngbTypeahead]="search"
+           [inputFormatter]="displaySelection"
+           (selectItem)="selectItem($event)"
+           (focus)="onFocus($event)" />
+
+    <ng-template #resultTemplate let-item="result" let-query="term">
+        {{ item?.label }}
+    </ng-template>
+
+</ng-container>

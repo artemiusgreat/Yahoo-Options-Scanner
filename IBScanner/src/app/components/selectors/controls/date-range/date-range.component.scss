@@ -1,0 +1,10 @@
+.c-date-range {
+
+    .popover, .popover-body {
+        max-width: 500px;
+    }
+
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.55rem);
+    }
+}

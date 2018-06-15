@@ -1,0 +1,25 @@
+<ng-container [formGroup]="group">
+  <span #menu="ngbDropdown" class="d-inline-block form-control" ngbDropdown autoClose="true">
+    <span class="d-block text-left" ngbDropdownToggle>
+      {{ label }}
+    </span>
+    <span #list class="dropdown-menu" ngbDropdownMenu>
+      <label class="dropdown-item" [hidden]="!all" (click)="selectAll()">
+        <i class="far"
+           [class.fa-square]="!conditional"
+           [class.fa-plus-square]="conditional == 'or'"
+           [class.fa-minus-square]="conditional == 'not'">
+        </i>
+        All
+      </label>
+      <label *ngFor="let item of source; let i = index" class="dropdown-item" (click)="selectOne(item)">
+        <i class="far"
+           [class.fa-square]="!item?.conditional"
+           [class.fa-plus-square]="item?.conditional == 'or'"
+           [class.fa-minus-square]="item?.conditional == 'not'">
+        </i>
+        {{ item?.label }}
+      </label>
+    </span>
+  </span>
+</ng-container>

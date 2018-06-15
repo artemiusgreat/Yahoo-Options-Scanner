@@ -1,0 +1,43 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <h4 class="card-title">Stocks Scanner</h4>
+        </div>
+        <div class="card-body">
+
+          <app-selectors #selectors class="row pl-3 pr-3">
+          </app-selectors>
+
+          <div class="clearfix w-100"></div>
+
+          <div class="table-responsive" [hidden]="0 && records.length">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>Strike</th>
+                  <th>Expiration</th>
+                  <th>Ask</th>
+                  <th>Bid</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of records">
+                  <td>{{ item.Symbol }}</td>
+                  <td>{{ item.Strike }}</td>
+                  <td>{{ item.Expiration }}</td>
+                  <td>{{ item.Ask }}</td>
+                  <td>{{ item.Bid }}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

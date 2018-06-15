@@ -1,0 +1,6 @@
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\netcoreapp2.0\IBLibrary.deps.json
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\bin\Debug\netcoreapp2.0\IBLibrary.dll
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\netcoreapp2.0\IBLibrary.csprojResolveAssemblyReference.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\netcoreapp2.0\IBLibrary.csproj.CoreCompileInputs.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\netcoreapp2.0\IBLibrary.AssemblyInfoInputs.cache
+D:\Data\Trade\IB-API\samples\CSharp\Options\IBLibrary\obj\Debug\netcoreapp2.0\IBLibrary.AssemblyInfo.cs
