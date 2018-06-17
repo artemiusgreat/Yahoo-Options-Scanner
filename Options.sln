@@ -2,13 +2,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBApi", "..\..\..\source\csharpclient\client\IBApi.csproj", "{8EDE0744-96C2-40B0-A8DC-37DF79370203}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBService", "IBService\IBService.csproj", "{70AFAFC9-0786-41F9-A98E-E0EBC5D7049B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBScanner", "IBScanner\IBScanner.csproj", "{B3131FF0-FB95-4E5B-9552-5E30F158174A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBLibrary", "IBLibrary\IBLibrary.csproj", "{E08099A3-7F5F-4B1F-A087-03BE6CBDA205}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IBLibrary", "IBLibrary\IBLibrary.csproj", "{E08099A3-7F5F-4B1F-A087-03BE6CBDA205}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IBApi", "IBApi\IBApi.csproj", "{8EDE0744-96C2-40B0-A8DC-37DF79370203}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,20 +22,6 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|ARM.Build.0 = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.Build.0 = Debug|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|ARM.ActiveCfg = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|ARM.Build.0 = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x64.ActiveCfg = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.ActiveCfg = Release|Any CPU
-		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.Build.0 = Release|Any CPU
 		{70AFAFC9-0786-41F9-A98E-E0EBC5D7049B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{70AFAFC9-0786-41F9-A98E-E0EBC5D7049B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70AFAFC9-0786-41F9-A98E-E0EBC5D7049B}.Debug|ARM.ActiveCfg = Debug|Any CPU
@@ -83,6 +69,22 @@ Global
 		{E08099A3-7F5F-4B1F-A087-03BE6CBDA205}.Release|x64.Build.0 = Release|Any CPU
 		{E08099A3-7F5F-4B1F-A087-03BE6CBDA205}.Release|x86.ActiveCfg = Release|Any CPU
 		{E08099A3-7F5F-4B1F-A087-03BE6CBDA205}.Release|x86.Build.0 = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|ARM.Build.0 = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x64.Build.0 = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Debug|x86.Build.0 = Debug|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|ARM.ActiveCfg = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|ARM.Build.0 = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x64.ActiveCfg = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x64.Build.0 = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.ActiveCfg = Release|Any CPU
+		{8EDE0744-96C2-40B0-A8DC-37DF79370203}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -39,7 +39,7 @@
 
           </app-selectors>
 
-          <div class="alert alert-warning" *ngFor="let error of errors">
+          <div class="alert alert-warning" *ngFor="let error of errors" [hidden]="items.length">
             {{ error }}
           </div>
 
@@ -48,6 +48,7 @@
               <thead>
                 <tr>
                   <th>Stock</th>
+                  <th>Type</th>
                   <th>Strike</th>
                   <th>Expiration</th>
                   <th>Ask</th>
@@ -57,6 +58,7 @@
               <tbody>
                 <tr *ngFor="let item of items">
                   <td>{{ item.OptionStock }}</td>
+                  <td>{{ item.OptionType }}</td>
                   <td>{{ item.OptionStrike }}</td>
                   <td>{{ item.OptionExpiration }}</td>
                   <td>{{ item.OptionAsk }}</td>

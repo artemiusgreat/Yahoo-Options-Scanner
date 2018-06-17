@@ -1,1 +1,0 @@
-D:\Data\Trade\IB-API\samples\CSharp\Options\IBScanner\obj\Debug\IBScanner.csprojResolveAssemblyReference.cache

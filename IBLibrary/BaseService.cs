@@ -44,13 +44,14 @@ namespace IBLibrary
     {
       var contracts = new List<Contract>();
       var processes = new List<Task<List<Contract>>>();
+      var generator = new Random(DateTime.Now.Millisecond);
 
       dataContracts.ForEach(contract =>
       {
         processes.Add(Task.Run(() =>
         {
+          var id = generator.Next();
           var completion = new TaskCompletionSource<bool>();
-          var id = new Random(DateTime.Now.Millisecond).Next();
 
           Action<ErrorMessage> errorMessage = null;
           Action<ContractDetailsMessage> contractMessage = null;
@@ -76,7 +77,6 @@ namespace IBLibrary
           {
             if (id == data.RequestId || data.ErrorCode == (int)ErrorCode.NotConnected)
             {
-              id = new Random(DateTime.Now.Millisecond).Next();
               completion.SetResult(false);
             }
           };

@@ -16,19 +16,21 @@ namespace IBLibrary
     {
       var options = new List<Option>();
       var processes = new List<Task<List<Option>>>();
+      var generator = new Random(DateTime.Now.Millisecond);
 
       dataContracts.ForEach(ctr =>
       {
         processes.Add(Task.Run(() =>
         {
+          var id = generator.Next();
           var completion = new TaskCompletionSource<bool>();
-          var id = new Random(DateTime.Now.Millisecond).Next();
 
           var option = new Option
           {
-            OptionName = ctr.LocalSymbol,
+            OptionType = ctr.Right,
             OptionStock = ctr.Symbol,
             OptionStrike = ctr.Strike,
+            OptionName = ctr.LocalSymbol,
             OptionExpiration = ctr.LastTradeDateOrContractMonth
           };
 
@@ -70,7 +72,6 @@ namespace IBLibrary
           {
             if (id == data.RequestId || data.ErrorCode == (int) ErrorCode.NotConnected)
             {
-              id = new Random(DateTime.Now.Millisecond).Next();
               completion.SetResult(false);
             }
           };
@@ -111,14 +112,15 @@ namespace IBLibrary
       var contracts = new List<Option>();
       var optionParams = new List<OptionParam>();
       var processes = new List<Task<List<Option>>>();
+      var generator = new Random(DateTime.Now.Millisecond);
 
       symbols.ForEach(symbol =>
       {
         processes.Add(Task.Run(() =>
         {
+          var id = generator.Next();
           var optionParam = new OptionParam();
           var completion = new TaskCompletionSource<bool>();
-          var id = new Random(DateTime.Now.Millisecond).Next();
 
           Action<ErrorMessage> errorMessage = null;
           Action<SecurityDefinitionOptionParameterMessage> contractMessage = null;
@@ -145,7 +147,6 @@ namespace IBLibrary
           {
             if (id == data.RequestId || data.ErrorCode == (int) ErrorCode.NotConnected)
             {
-              id = new Random(DateTime.Now.Millisecond).Next();
               completion.SetResult(false);
             }
           };

@@ -171,6 +171,8 @@
     <Content Include="src\app\areas\management\components\navbar\navbar.component.scss" />
     <Content Include="src\app\areas\management\components\sidebar\sidebar.component.scss" />
     <Content Include="src\app\areas\management\options-loader\options-loader.component.scss" />
+    <Content Include="server\package-lock.json" />
+    <Content Include="server\package.json" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -190,6 +192,14 @@
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
   </ItemGroup>
   <ItemGroup>
+    <TypeScriptCompile Include="server\environments\environment.ts" />
+    <TypeScriptCompile Include="server\modules\base\controllers\base.ts" />
+    <TypeScriptCompile Include="server\modules\base\models\mongo.ts" />
+    <TypeScriptCompile Include="server\modules\base\models\base.ts" />
+    <TypeScriptCompile Include="server\modules\interactive-brokers\controllers\option.ts" />
+    <TypeScriptCompile Include="server\modules\interactive-brokers\models\ib.ts" />
+    <TypeScriptCompile Include="server\modules\interactive-brokers\models\option.ts" />
+    <TypeScriptCompile Include="server\server.ts" />
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\app.routing.ts" />
@@ -228,7 +238,6 @@
     <TypeScriptCompile Include="src\app\components\selectors\controls\select\select.component.ts" />
     <TypeScriptCompile Include="src\app\components\selectors\selectors.component.ts" />
     <TypeScriptCompile Include="src\app\components\selectors\selectors.module.ts" />
-    <TypeScriptCompile Include="src\environments\environment.prod.ts" />
     <TypeScriptCompile Include="src\environments\environment.ts" />
     <TypeScriptCompile Include="src\main.ts" />
     <TypeScriptCompile Include="src\polyfills.ts" />
@@ -237,7 +246,9 @@
     <TypeScriptCompile Include="typings\index.d.ts" />
     <TypeScriptCompile Include="typings\modules\chartist\index.d.ts" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="server\assets\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
