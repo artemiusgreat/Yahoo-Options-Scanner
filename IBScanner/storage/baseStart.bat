@@ -1,1 +1,1 @@
-mongod --port 6000 --dbpath d:\Data\Trade\IB-API\samples\CSharp\Options\IBScanner\storage
+mongod --port 6000 --dbpath ./

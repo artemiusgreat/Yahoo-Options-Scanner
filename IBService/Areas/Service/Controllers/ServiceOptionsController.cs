@@ -1,8 +1,7 @@
 ﻿using IBApi;
-using IBLibrary;
-using IBLibrary.Models;
+using IBLibrary.Models.Data;
+using IBLibrary.Services;
 using IBService.Areas.Service.Models;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,7 +9,7 @@ using System.Web.Http;
 
 namespace IBService.Areas.Service.Controllers
 {
-  public class ServiceOptionsController : BaseServiceController
+  public class ServiceOptionsController : ServiceBaseController
   {
     [AcceptVerbs("POST")]
     public List<Option> Options([FromBody] dynamic data)
@@ -19,65 +18,17 @@ namespace IBService.Areas.Service.Controllers
     }
 
     [AcceptVerbs("POST")]
-    public Response<Option> ScheduleOptions([FromBody] dynamic data)
+    public Response<Option> DownloadOptions([FromBody] dynamic data)
     {
-      var items = new List<Option>();
-      var query = data.ToObject<Query>();
-      var response = new Response<Option>
-      {
-        Items = items
-      };
-
-      if (query.Action == null ||
-          query.Selectors == null ||
-          query.Selectors.Count == 0)
-      {
-        response.Errors = new List<string>
-        {
-          "No parameters found"
-        };
-
-        return response;
-      }
-
-      List<Selector> selectors = query.Selectors;
-
-      var symbols = selectors.Find(o => o.Name == "Symbol");
-      var expirations = selectors.Find(o => o.Name == "Expiration");
-
-      if (symbols == null ||
-          expirations == null)
-      {
-        response.Errors = new List<string>
-        {
-          "Symbol or Expiration is missing"
-        };
-
-        return response;
-      }
-
+      var response = new Response<Option>();
       var contracts = new List<Contract>();
-      var dateRange = expirations.Value.LastOrDefault().Split(':');
-      var dateStart = DateTime.Parse(dateRange.FirstOrDefault());
-      var dateEnd = DateTime.Parse(dateRange.LastOrDefault());
+      var selectors = data.ToObject<OptionSelector>();
+      var symbols = (List<string>) selectors.Symbols;
+      var dates = (List<string>) selectors.Dates;
 
-      if (dateEnd == null || dateStart == null || dateStart > dateEnd)
+      symbols.ForEach(symbol =>
       {
-        response.Errors = new List<string>
-        {
-          "Symbol or Expiration is missing"
-        };
-
-        return response;
-      }
-
-      var dateStop = dateStart.AddMonths(5);
-
-      symbols.Value.ForEach(symbol =>
-      {
-        var dateCurrent = dateStart;
-
-        while (dateCurrent < dateEnd && dateCurrent < dateStop)
+        dates.ForEach(date =>
         {
           contracts.Add(new Contract
           {
@@ -85,19 +36,17 @@ namespace IBService.Areas.Service.Controllers
             SecType = "OPT",
             Exchange = "SMART",
             Currency = "USD",
-            LastTradeDateOrContractMonth = dateCurrent.ToString("yyyyMM")
+            LastTradeDateOrContractMonth = date
           });
-
-          dateCurrent = dateCurrent.AddMonths(1);
-        }
+        });
       });
 
       var optionService = new OptionService();
       var optionProcesses = optionService.GetContracts(contracts);
-      var optionContracts = Task.WhenAll(optionProcesses).Result.SelectMany(o => o).Take(10).ToList();
-      var optionDetailsProcesses = optionService.GetOptionDetails("SMART", optionContracts);
+      var optionContracts = Task.WhenAll(optionProcesses).Result.SelectMany(o => o).ToList();
+      var optionDetailsProcesses = optionService.GetOptionDetails(optionContracts);
+      response.Items = Task.WhenAll(optionDetailsProcesses).Result.SelectMany(o => o).ToList();
 
-      response.Items = Task.WhenAll(optionDetailsProcesses).Result.SelectMany(o => o).Take(10).ToList();
       optionService.Dispose();
 
       return response;

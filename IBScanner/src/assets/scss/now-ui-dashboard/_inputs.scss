@@ -4,7 +4,6 @@
     padding: 10px;
     background-color: $transparent-bg;
     border: 1px solid $light-gray;
-    border-radius: $btn-round-radius;
     color: $black-color;
     line-height: normal;
     font-size: $font-size-small;
@@ -45,7 +44,6 @@
     }
 
     & + .form-control-feedback{
-        border-radius: $border-radius-large;
         font-size: $font-size-base;
         margin-top: -7px;
         position: absolute;
@@ -55,7 +53,6 @@
     }
 
     .open &{
-        border-radius: $border-radius-large $border-radius-large 0 0;
         border-bottom-color: transparent;
     }
 
@@ -188,7 +185,6 @@
 .input-group-prepend .input-group-text {
     background-color: transparent;
     border: 1px solid $light-gray;
-    border-radius: $btn-round-radius;
     color: $default-color;
 
     & i{
@@ -266,7 +262,6 @@
 }
 
 .input-group .form-control:not(:first-child):not(:last-child), .input-group-btn:not(:first-child):not(:last-child){
-    border-radius: $btn-round-radius;
     border-top-left-radius: 0;
     border-bottom-left-radius: 0;
     border-left: 0 none;

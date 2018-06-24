@@ -5,7 +5,6 @@
     font-size: $font-size-small;
     line-height: $line-height;
     border: none;
-    border-radius: 2rem;
     padding: $padding-btn-vertical $padding-btn-horizontal;
     cursor: pointer;
 
@@ -135,13 +134,6 @@
     background-color: $transparent-bg;
 }
 
-.btn-lg{
-   @include btn-size($padding-large-vertical, $padding-large-horizontal, $font-size-large, $border-radius-large);
-}
-.btn-sm{
-    @include btn-size($padding-small-vertical, $padding-small-horizontal, $font-size-base, $border-radius-small);
-}
-
 .btn-wd {
     min-width: 140px;
 }
@@ -160,7 +152,6 @@
 
 .btn-round{
     border-width: $border-thin;
-    border-radius: $btn-round-radius;
     padding-right: $padding-round-horizontal;
     padding-left: $padding-round-horizontal;
 

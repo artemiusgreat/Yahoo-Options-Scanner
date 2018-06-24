@@ -18,3 +18,4 @@ bld/
 node_modules
 bin
 obj
+IBScanner/storage/**

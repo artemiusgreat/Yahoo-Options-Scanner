@@ -28,9 +28,9 @@ namespace IBService.Areas.Service
       );
 
       context.Routes.MapHttpRoute(
-        name: "Service.Options.Schedule",
-        routeTemplate: "service/options/schedule",
-        defaults: new { controller = "ServiceOptions", action = "ScheduleOptions" }
+        name: "Service.Options.Download",
+        routeTemplate: "service/options/download",
+        defaults: new { controller = "ServiceOptions", action = "DownloadOptions" }
       );
     }
   }

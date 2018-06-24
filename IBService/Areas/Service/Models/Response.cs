@@ -6,5 +6,6 @@ namespace IBService.Areas.Service.Models
   {
     public List<T> Items;
     public List<string> Errors;
+    public List<string> Messages;
   }
 }

@@ -132,7 +132,6 @@
         }
 
         .nav-link{
-            text-transform: uppercase;
             font-size: $font-size-mini;
             padding: $padding-base-vertical $padding-base-horizontal;
             line-height: $line-height-nav-link;
@@ -185,12 +184,10 @@
         height: 27px;
         overflow: hidden;
         margin: 0 auto;
-        border-radius: 50%;
         border: 1px solid transparent;
     }
 
     .navbar-brand{
-        text-transform: uppercase;
         font-size: $font-size-small;
         padding-top: $padding-base-vertical;
         padding-bottom: $padding-base-vertical;
@@ -207,7 +204,6 @@
         & .navbar-toggler-bar.navbar-kebab{
             width: 3px;
             height: 3px;
-            border-radius: 50%;
             margin: 0 auto;
         }
     }

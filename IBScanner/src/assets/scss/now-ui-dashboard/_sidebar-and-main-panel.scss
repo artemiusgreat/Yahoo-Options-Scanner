@@ -50,7 +50,6 @@
       @extend .animation-transition-general;
     }
     .logo-tim{
-      border-radius: 50%;
       border: 1px solid #333;
       display: block;
       height: 61px;
@@ -81,12 +80,10 @@
 
             > a{
                 margin: 10px 15px 0;
-                border-radius: $btn-round-radius;
                 color: $white-color;
                 display: block;
                 text-decoration: none;
                 position: relative;
-                text-transform: uppercase;
                 cursor: pointer;
                 font-size: $font-size-mini;
                 padding: 10px 8px;
@@ -202,7 +199,6 @@
         }
 
         .simple-text{
-            text-transform: uppercase;
             padding: $padding-base-vertical 0;
             display: block;
             white-space: nowrap;
@@ -216,7 +212,6 @@
     }
 
     .logo-tim{
-        border-radius: 50%;
         border: 1px solid #333;
         display: block;
         height: 61px;

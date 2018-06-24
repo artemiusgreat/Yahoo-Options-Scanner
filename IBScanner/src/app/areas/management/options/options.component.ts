@@ -1,13 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Subject } from 'rxjs';
-import { OnDestroy } from '@angular/core';
-import { ViewChild } from '@angular/core';
 import { SelectorsComponent } from 'app/components/selectors/selectors.component';
 import { OptionsService } from 'app/services/options.service';
 import { BaseComponent } from 'app/components/base.component';
 import { FormControl } from '@angular/forms';
 import { SelectorsControlComponent } from 'app/components/selectors/controls/control/control.component';
 import { environment } from 'environments/environment';
+import { ServerDataSource } from 'ng2-smart-table';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ServerSourceConf } from 'ng2-smart-table/lib/data-source/server/server-source.conf';
 
 @Component({
   selector: 'app-options',
@@ -17,179 +18,120 @@ import { environment } from 'environments/environment';
 
 export class OptionsComponent extends BaseComponent implements OnInit {
 
-  @ViewChild('selectors') selectors: SelectorsComponent;
+  @ViewChild('loader') loader: SelectorsComponent;
+  @ViewChild('optionsScanner') optionsScanner: SelectorsComponent;
 
-  orderSources: any = {
-
-    Name: [
-      { value: '', label: 'Order' },
-      { value: 'Expiration', label: 'Expiration' },
-      { value: 'Strike', label: 'Strike' },
-      { value: 'Combination', label: 'Combination' },
-      { value: 'Symbol', label: 'Symbol' },
-      { value: 'Ask', label: 'Ask' },
-      { value: 'Bid', label: 'Bid' }
+  sources: any = {
+    symbols: [
+        { value: 'NDX', label: 'NDX Index' },
+        { value: 'SPX', label: 'SPX Index' },
+        { value: 'BKNG', label: 'Booking' },
+        { value: 'AMZN', label: 'Amazon' }
     ],
-    Direction: [
-      { value: '1', label: 'Ascending' },
-      { value: '-1', label: 'Descending' }
-    ]
+    optionsScanner: ServerDataSource
   };
 
-  conditionSources: any = {
+  loaders: any = {
+    download: false,
+    optionsScanner: false
+  };
 
-    Name: [
-      { value: '', label: 'Property' },
-      { value: 'Expiration', label: 'Expiration' },
-      { value: 'Strike', label: 'Strike' },
-      { value: 'Combination', label: 'Combination' },
-      { value: 'Symbol', label: 'Symbol' }
-    ],
-    Operation: {
-      Expiration: [
-        { value: 'Month', label: 'month is' }
-      ],
-      Strike: [
-        { value: '<=', label: 'is less or equal to' },
-        { value: '>=', label: 'is greater or equal to' },
-        { value: '=', label: 'is equal to' }
-      ],
-      Combination: [
-        { value: 'In', label: 'is one of' }
-      ],
-      Symbol: [
-        { value: 'In', label: 'is one of' }
-      ]
-    },
-    Value: {
-      Expiration: {
-        selector: 'date'
+  errors: any = {
+    download: [],
+    optionsScanner: []
+  };
+
+  settings = {
+    columns: {
+      localSymbol: {
+        title: 'Name'
       },
-      Strike: {
-        selector: 'input'
+      right: {
+        title: 'Right'
       },
-      Combination: {
-        selector: 'multiselect',
-        source: [
-          { value: 'nakedPut', label: 'Naked Put' },
-          { value: 'nakedCall', label: 'Naked Call' }
-        ]
+      strike: {
+        title: 'Strike'
       },
-      Symbol: {
-        selector: 'multiselect',
-        source: [
-          { value: 'NDX', label: 'NDX Index' },
-          { value: 'SPX', label: 'SPX Index' },
-          { value: 'BKNG', label: 'Booking' },
-          { value: 'AMZN', label: 'Amazon' }
-        ]
+      expiry: {
+        title: 'Expiration Date'
       }
     }
   };
 
-  loader: number = 0;
-  orders: any = [];
-  errors: any = [];
-  items: any = [];
-  conditions: any = [];
-  keys: Function = Object.keys;
-
-  constructor(public optionsService: OptionsService) {
+  constructor(
+    public httpClient: HttpClient,
+    public optionsService: OptionsService) {
     super();
   }
 
   ngOnInit() {
   }
 
-  showItem(value: any) {
+  download(event: any) {
 
-    if (value instanceof Array) {
-      return value.map(o => o.label).join(' or ');
+    let values = this.loader.group.value;
+    let end = ((values.end || [])[0] || {}).value;
+    let start = ((values.start || [])[0] || {}).value;
+
+    let params = {
+      Dates: [],
+      Symbols: (values.symbols || []).map(o => o.value)
+    };
+
+    this.errors.download = [];
+
+    if (!start || !end || !params.Symbols.length) {
+      this.errors.download.push('Parameters not defined');
+      return false;
     }
 
-    return value.label;
-  }
+    let endDate = new Date(end);
+    let startDate = new Date(start);
+    let endYear = endDate.getFullYear();
+    let startYear = startDate.getFullYear();
+    let endMonth = endDate.getMonth();
+    let startMonth = startDate.getMonth();
+    let pad = o => o < 10 ? '0' + o : o;
 
-  removeItem(items: any[], index: number) {
-    items.splice(index, 1);
-  }
-
-  addCondition(name: string, operation: string, control: any) {
-
-    let value = null;
-
-    if (control instanceof Array) {
-
-      let start = (this.selectors.group.get(control[0].name).value[0] || {}).value;
-      let end = (this.selectors.group.get(control[1].name).value[0] || {}).value;
-
-      if (start && end) {
-        value = [{ label: start + ':' + end, value: start + ':' + end }];
+    for (let k = startYear; k < endYear + 1; k++) {
+      for (let n = 0; n < 12; n++) {
+        if (!(k == startYear && n < startMonth || k == endYear && n > endMonth)) {
+          params.Dates.push(k + '' + pad(n + 1));
+        }
       }
-
-    } else {
-
-      value = this.selectors.group.get(control.name).value;
     }
-    
-    if ((value || []).length) {
 
-      this.conditions.push({
-        name: this.conditionSources.Name.filter(o => o.value == name)[0],
-        operation: this.conditionSources.Operation[name].filter(o => o.value == operation)[0],
-        value: value
-      });
-    }
-  }
+    this.loaders.download = true;
 
-  addOrder(name: string, direction: string) {
-
-    let orderName = this.orderSources.Name.filter(o => o.value == name)[0];
-    let orderDirection = this.orderSources.Direction.filter(o => o.value == direction)[0];
-
-    if (orderName && (orderDirection || {}).value) {
-      this.orders.push({
-        name: orderName,
-        value: orderDirection
-      });
-    }
-  }
-
-  scan() {
-    this.send(environment.options.chain, { Action: 'scan' });
-  }
-
-  send(url: string, params?: any) {
-
-    params = params || {};
-
-    params.Action = params.Action || null;
-    params.Orders = params.Orders || [];
-    params.Selectors = params.Selectors || [];
-
-    this.conditions.forEach((v, k) => {
-
-      let param: any = {};
-
-      param.Name = v.name.value;
-      param.Operation = v.operation.value;
-      param.Value = v.value.map(o => o.value);
-      params.Selectors.push(param);
-    });
-
-    this.orders.forEach((v, k) => {
-
-      let param: any = {};
-
-      param.Name = v.name.value;
-      param.Direction = v.value.value;
-      params.Orders.push(param);
-    });
-
-    this.optionsService.post(url, params).toPromise().then(response => {
+    this.optionsService.post(environment.options.download, params).toPromise().then(response => {
       response = response || {};
-      this.items = response.Items || [];
-      this.errors = response.Errors || ['No connection'];
+      this.errors.download = response.Errors || ['Connection error'];
+      this.loaders.download = false;
+    }).catch(e => {
+      this.loaders.download = false;
     });
+
+    return true;
+  }
+
+  scan(event: any) {
+
+    let query = new URLSearchParams();
+    let values: any = this.optionsScanner.group.value;
+
+    query.set('End', ((values.end || [])[0] || {}).value);
+    query.set('Start', ((values.start || [])[0] || {}).value);
+
+    let configuration = new ServerSourceConf({
+      endPoint: environment.options.scan,
+      pagerLimitKey: 'Limit',
+      pagerPageKey: 'Page',
+      sortFieldKey: 'Order',
+      sortDirKey: 'Direction',
+      totalKey: 'Count',
+      dataKey: 'Items'
+    });
+
+    this.sources.optionsScanner = new ServerDataSource(this.httpClient, configuration);
   }
 }

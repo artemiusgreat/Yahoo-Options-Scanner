@@ -1,28 +1,37 @@
 import { BaseModel } from "./base";
 import { MongoClient } from "mongodb";
 import { environment } from "../../../environments/environment";
+import async from 'async';
 
 class Model extends BaseModel {
+
+  client: any = null;
+
+  query: any = {
+    Page: 0,
+    Limit: 0,
+    Count: 0,
+    Order: null,
+    Direction: 1,
+    Items: []
+  };
 
   constructor() {
     super();
   }
 
-  openConnection(connection: string) {
+  openConnection(connection: string, done: Function) {
 
     let pointer = this;
 
-    return new Promise((success, error) => {
+    if (pointer.client && pointer.client.isConnected()) {
+      done(null, pointer.client);
+      return;
+    }
 
-      try {
-
-        MongoClient.connect(connection, (e, client) => {
-          success(client);
-        });
-
-      } catch (e) {
-        error(e);
-      }
+    MongoClient.connect(connection, (e, client) => {
+      pointer.client = client;
+      done(e, pointer.client);
     });
   }
 
@@ -30,37 +39,84 @@ class Model extends BaseModel {
     client.close();
   }
 
-  saveOptions(contracts: any[]) {
+  saveOptions(contracts: any, done: Function) {
 
     let pointer = this;
 
-    return new Promise((success, error) => {
+    async.auto({
 
-      try {
+      open: (done) => {
+        pointer.openConnection(environment.mongo.connection, done);
+      },
 
-        this
-          .openConnection(environment.mongo.connection)
-          .catch(e => error(e))
-          .then((client: any) => {
+      save: ['open', (data, done) => {
 
-            let storage = client.db(environment.mongo.base.name);
-            let collection = storage.collection(environment.mongo.base.collection.option);
+        try {
 
-            collection.insertMany(contracts, (e, response) => {
+          let client = data.open;
+          let storage = client.db(environment.mongo.base.name);
+          let collection = storage.collection(environment.mongo.base.collection.option);
 
-              this.closeConnection(client);
+          for (let id in contracts) {
+            collection.update({ _id: id }, contracts[id].summary, { upsert: true });
+          }
 
-              if (e) {
-                return error(e);
-              }
+          done(null, Object.keys(contracts));
 
-              return success(response);
+        } catch (e) {
+          done(e, null);
+        }
+
+      }]
+
+    }, (e, data) => {
+      done(e, data.save);
+    });
+  }
+
+  searchOptions(query: any, done: Function) {
+
+    let pointer = this;
+
+    query = Object.assign({}, pointer.query, query);
+
+    async.auto({
+
+      open: (done) => {
+        pointer.openConnection(environment.mongo.connection, done);
+      },
+
+      search: ['open', (data, done) => {
+
+        try {
+
+          let client = data.open;
+          let storage = client.db(environment.mongo.base.name);
+          let collection = storage.collection(environment.mongo.base.collection.option);
+          let limit = +query.Limit || 0;
+          let page = +query.Page || 0;
+          let items = collection.find();
+
+          items.skip(page * limit).limit(limit).toArray((e, docs) => {
+            items.count().then((count) => {
+
+              let response = Object.assign({}, pointer.query);
+
+              response.Count = count;
+              response.Items = docs;
+
+              done(e, response);
             });
           });
 
-      } catch (e) {
-        error(e);
-      }
+        } catch (e) {
+          done(e, null);
+        }
+
+      }]
+
+    }, (e, data) => {
+      done(e, data.search);
     });
   }
 }

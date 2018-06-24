@@ -6,85 +6,59 @@
       <div class="card">
         <div class="card-body">
 
-          <app-selectors #selectors class="row pl-3 pr-3">
+          <ngb-accordion #acc="ngbAccordion">
+            <ngb-panel id="panel-loader" title="Loader">
+              <ng-template ngbPanelContent>
 
-            <select #nameSelector class="col-2 form-control mb-3 mr-3">
-              <option *ngFor="let item of conditionSources.Name" [value]="item.value">{{ item.label }}</option>
-            </select>
-            <select #operationSelector class="col-2 form-control mb-3" [hidden]="!nameSelector.value">
-              <option *ngFor="let item of conditionSources.Operation[nameSelector.value]" [value]="item.value">{{ item.label }}</option>
-            </select>
-            <div class="col-2 mb-3" [hidden]="!nameSelector.value">
-              <app-selectors-case #valueSelector label="Value" name="Value" instances="1" [conditions]="[null, 'or']" [selector]="conditionSources.Value[nameSelector.value]?.selector" [container]="selectors" [source]="conditionSources.Value[nameSelector.value]?.source || []"></app-selectors-case>
-            </div>
+                <app-selectors #loader class="row pl-3 pr-3">
+                  <app-selectors-case class="d-inline-block mr-3" label="Symbol" name="symbols" instances="1" [conditions]="[null, 'or']" selector="multiselect" [container]="loader" [source]="sources.symbols"></app-selectors-case>
+                  <app-selectors-case class="d-inline-block mr-3" label="Start" name="start" instances="1" selector="date" [container]="loader"></app-selectors-case>
+                  <app-selectors-case class="d-inline-block mr-3" label="End" name="end" instances="1" selector="date" [container]="loader"></app-selectors-case>
+                  <button class="btn" (click)="download($event)">Download <i *ngIf="loaders.download" class="fa fa-cog fa-spin ml-2"></i></button>
+                </app-selectors>
 
-            <div class="d-inline-block mr-3 mb-3" *ngIf="nameSelector.value">
-              <button class="btn" (click)="addCondition(nameSelector.value, operationSelector.value, valueSelector)">Add</button>
-            </div>
+                <div class="alert alert-warning mt-3" *ngFor="let error of errors.download">
+                  {{ error }}
+                </div>
 
-            <div class="clearfix w-100"></div>
+              </ng-template>
+            </ngb-panel>
+            <ngb-panel id="panel-scanner" title="Scanner">
+              <ng-template ngbPanelContent>
 
-            <select #orderNameSelector class="col-2 form-control mb-3 mr-3">
-              <option *ngFor="let item of orderSources.Name" [value]="item.value">{{ item.label }}</option>
-            </select>
-            <select #orderDirectionSelector class="col-2 form-control mb-3 mr-3" [hidden]="!orderNameSelector.value">
-              <option *ngFor="let item of orderSources.Direction" [value]="item.value">{{ item.label }}</option>
-            </select>
+                <ngb-tabset>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Options</ng-template>
+                    <ng-template ngbTabContent>
 
-            <ng-container *ngIf="orderNameSelector.value && orderDirectionSelector.value">
+                      <app-selectors #optionsScanner class="row p-3">
+                        <app-selectors-case class="d-inline-block mr-3" label="Start" name="start" instances="1" selector="date" [container]="optionsScanner"></app-selectors-case>
+                        <app-selectors-case class="d-inline-block mr-3" label="End" name="end" instances="1" selector="date" [container]="optionsScanner"></app-selectors-case>
+                        <button class="btn" (click)="scan($event)">Scan <i *ngIf="loaders.optionsScanner" class="fa fa-cog fa-spin ml-2"></i></button>
+                      </app-selectors>
 
-              <div class="d-inline-block mr-3 mb-3">
-                <button class="btn" (click)="addOrder(orderNameSelector.value, orderDirectionSelector.value)">Add</button>
-              </div>
+                      <div class="alert alert-warning" *ngFor="let error of errors.optionsScanner">
+                        {{ error }}
+                      </div>
 
-              <div class="d-inline-block mr-3 mb-3" *ngIf="conditions.length && orders.length">
-                <button class="btn btn-success" (click)="query()">Scan</button>
-              </div>
+                      <div class="table-responsive ml-1 mr-1">
+                        <ng2-smart-table [settings]="settings" [source]="sources.optionsScanner"></ng2-smart-table>
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                  <ngb-tab>
+                    <ng-template ngbTabTitle>Bull Put Spreads</ng-template>
+                    <ng-template ngbTabContent>
+                      <div class="table-responsive">
+                      </div>
+                    </ng-template>
+                  </ngb-tab>
+                </ngb-tabset>
 
-            </ng-container>
+              </ng-template>
+            </ngb-panel>
+          </ngb-accordion>
 
-            <div class="clearfix w-100"></div>
-
-            <button class="btn btn-primary mr-3 mb-3 pr-3 c-selection" *ngFor="let item of conditions; let i = index" (click)="removeItem(conditions, i)">
-              <span class="mr-3">{{ item.name.label }} {{ item.operation.label }} {{ showItem(item.value) }} </span>
-              <i class="fa fa-times"></i>
-            </button>
-
-            <div class="clearfix w-100"></div>
-
-            <button class="btn btn-info mr-3 mb-3 pr-3 c-selection" *ngFor="let item of orders; let i = index" (click)="removeItem(orders, i)">
-              <span class="mr-3">{{ item.name.label }} {{ showItem(item.value) }} </span>
-              <i class="fa fa-times"></i>
-            </button>
-
-          </app-selectors>
-
-          <div class="alert alert-warning" *ngFor="let error of errors">
-            {{ error }}
-          </div>
-
-          <div class="table-responsive" [hidden]="!items.length">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th>Symbol</th>
-                  <th>Strike</th>
-                  <th>Expiration</th>
-                  <th>Ask</th>
-                  <th>Bid</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let item of items">
-                  <td>{{ item.Symbol }}</td>
-                  <td>{{ item.Strike }}</td>
-                  <td>{{ item.Expiration }}</td>
-                  <td>{{ item.Ask }}</td>
-                  <td>{{ item.Bid }}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </div>

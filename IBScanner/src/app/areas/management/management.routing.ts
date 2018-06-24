@@ -7,11 +7,9 @@ import { TableListComponent } from 'app/areas/management/table-list/table-list.c
 import { TypographyComponent } from 'app/areas/management/typography/typography.component';
 import { IconsComponent } from 'app/areas/management/icons/icons.component';
 import { NotificationsComponent } from 'app/areas/management/notifications/notifications.component';
-import { OptionsLoaderComponent } from 'app/areas/management/options-loader/options-loader.component';
 
 export const ManagementRoutes: Routes = [
   { path: 'options', component: OptionsComponent },
-  { path: 'options-loader', component: OptionsLoaderComponent },
   { path: 'stocks', component: StocksComponent },
   { path: 'user-profile', component: UserProfileComponent },
   { path: 'table-list', component: TableListComponent },

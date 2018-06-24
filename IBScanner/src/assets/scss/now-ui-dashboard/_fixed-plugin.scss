@@ -4,7 +4,6 @@
     width: 64px;
     background: rgba(0,0,0,.3);
     z-index: 1031;
-    border-radius: 8px 0 0 8px;
     text-align: center;
     top: 120px;
 
@@ -18,7 +17,6 @@
     .fa-cog{
         color: #FFFFFF;
         padding: 10px;
-        border-radius: 0 0 6px 6px;
         width: auto;
     }
 
@@ -27,7 +25,6 @@
         left: auto !important;
         top: -52px !important;
         width: 290px;
-        border-radius: 0.1875rem;
         padding: 0 10px;
     }
 
@@ -71,7 +68,6 @@
 
     .badge{
         border: 3px solid #FFFFFF;
-        border-radius: 50%;
         cursor: pointer;
         display: inline-block;
         height: 23px;
@@ -202,7 +198,6 @@
             & > a.img-holder{
                   font-size: 16px;
                   text-align: center;
-                  border-radius: 10px;
                   background-color: #FFF;
                   border: 3px solid #FFF;
                   padding-left: 0;

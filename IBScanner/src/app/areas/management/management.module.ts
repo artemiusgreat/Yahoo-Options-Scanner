@@ -16,7 +16,7 @@ import { NotificationsComponent } from 'app/areas/management/notifications/notif
 import { ManagementRoutes } from 'app/areas/management/management.routing';
 import { ComponentsModule } from 'app/components/components.module';
 import { ManagementComponentsModule } from 'app/areas/management/components/components.module';
-import { OptionsLoaderComponent } from 'app/areas/management/options-loader/options-loader.component';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 
 @NgModule({
   imports: [
@@ -27,6 +27,7 @@ import { OptionsLoaderComponent } from 'app/areas/management/options-loader/opti
     FormsModule,
     ChartsModule,
     NgbModule,
+    Ng2SmartTableModule,
     ToastrModule.forRoot()
   ],
   declarations: [
@@ -34,7 +35,6 @@ import { OptionsLoaderComponent } from 'app/areas/management/options-loader/opti
     UserProfileComponent,
     TableListComponent,
     OptionsComponent,
-    OptionsLoaderComponent,
     StocksComponent,
     TypographyComponent,
     IconsComponent,

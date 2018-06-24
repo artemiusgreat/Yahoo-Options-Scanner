@@ -161,12 +161,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Areas\Service\Controllers\BaseServiceController.cs" />
+    <Compile Include="Areas\Service\Controllers\ServiceBaseController.cs" />
     <Compile Include="Areas\Service\Controllers\ServiceOptionsController.cs" />
     <Compile Include="Areas\Service\Models\Order.cs" />
     <Compile Include="Areas\Service\Models\Response.cs" />
-    <Compile Include="Areas\Service\Models\Query.cs" />
-    <Compile Include="Areas\Service\Models\Selector.cs" />
+    <Compile Include="Areas\Service\Models\OptionSelector.cs" />
     <Compile Include="Areas\Service\ServiceAreaRegistration.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Global.asax.cs">

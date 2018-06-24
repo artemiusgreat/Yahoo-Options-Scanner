@@ -84,7 +84,6 @@
     <Content Include="src\app\areas\management\maps\maps.component.scss" />
     <Content Include="src\app\areas\management\notifications\notifications.component.html" />
     <Content Include="src\app\areas\management\notifications\notifications.component.scss" />
-    <Content Include="src\app\areas\management\options-loader\options-loader.component.html" />
     <Content Include="src\app\areas\management\options\options.component.html" />
     <Content Include="src\app\areas\management\options\options.component.scss" />
     <Content Include="src\app\areas\management\components\footer\footer.component.html" />
@@ -170,7 +169,6 @@
     <Content Include="src\app\areas\management\components\footer\footer.component.scss" />
     <Content Include="src\app\areas\management\components\navbar\navbar.component.scss" />
     <Content Include="src\app\areas\management\components\sidebar\sidebar.component.scss" />
-    <Content Include="src\app\areas\management\options-loader\options-loader.component.scss" />
     <Content Include="server\package-lock.json" />
     <Content Include="server\package.json" />
     <None Include="Web.Debug.config">
@@ -203,7 +201,6 @@
     <TypeScriptCompile Include="src\app\app.component.ts" />
     <TypeScriptCompile Include="src\app\app.module.ts" />
     <TypeScriptCompile Include="src\app\app.routing.ts" />
-    <TypeScriptCompile Include="src\app\areas\management\options-loader\options-loader.component.ts" />
     <TypeScriptCompile Include="src\app\components\base.component.ts" />
     <TypeScriptCompile Include="src\app\areas\management\dashboard\dashboard.component.ts" />
     <TypeScriptCompile Include="src\app\areas\management\icons\icons.component.ts" />
