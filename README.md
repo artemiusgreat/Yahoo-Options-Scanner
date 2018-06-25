@@ -20,3 +20,5 @@ Implementation in C# MVC is in progress.
 - Node JS server should be started from IBScanner => server with a command "ts-node server"
 
 UI should be available at http://localhost:4000
+
+[Preview](https://i.imgur.com/YH28Ckf.png)
