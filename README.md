@@ -24,3 +24,5 @@ UI allows to download options for selected symbols and dates, save them to DB, a
 - In Visual Studio, click on solution and restore Nuget packages 
 - In Service/Areas/Pages/Application, execute npm install to restore NPM packages
 - To make sure that UI works as expected, run scripts/compile.bat to build Angular UI 
+
+![](options-scanner/Preview.png)
