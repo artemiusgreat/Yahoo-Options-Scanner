@@ -20,4 +20,6 @@ UI allows to download options for selected symbols and dates, save them to DB, a
 
 # Requirements
 
-Mongo DB needs to be started on port 6000, on Windows you can just run scripts/base.bat to do this
+- Mongo DB needs to be started on port 6000, on Windows you can just run scripts/base.bat to do this
+- In Visual Studio, click on solution and restore Nuget packages 
+- In Service/Areas/Pages/Application, execute npm install to restore NPM packages
