@@ -12,11 +12,10 @@ bld/
 .vs/
 
 **/node_modules/**
+**/packages/**
 **/bin/**
 **/obj/**
 
 node_modules
 bin
 obj
-IBScanner/storage
-IBScanner/storage/**
