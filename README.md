@@ -27,4 +27,4 @@ UI allows to download options for selected symbols and dates, save them to DB, a
 
 # Preview 
 
-![](Preview.png)
+![](Home.png)
