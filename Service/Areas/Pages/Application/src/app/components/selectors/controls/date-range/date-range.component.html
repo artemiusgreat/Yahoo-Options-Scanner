@@ -1,0 +1,37 @@
+<ng-container [formGroup]="group">
+
+    <span class="input-group c-date-range">
+
+        <ng-template #popContent>
+            <ngb-datepicker 
+                [displayMonths]="2"
+                navigation="select"
+                [formControlName]="controlName"
+                (ngModelChange)="onDateChange($event)"
+                [(ngModel)]="controlValue">
+            </ngb-datepicker>
+        </ng-template>
+
+        <select 
+            #dateSelector
+            class="form-control"
+            [ngbPopover]="popContent"
+            placement="bottom"
+            #popover="ngbPopover"
+            triggers="manual"
+            (change)="setControlRange(dateSelector)">
+            <option *ngFor="let k of getKeys(controlOptions)" [value]="k">{{ controlOptions[k] }}</option>
+        </select>
+
+        <label class="input-group-addon btn" (click)="showCalendar($event)" *ngIf="dateSelector.value == 'custom'">
+            <span class="fa fa-calendar"></span>
+        </label>
+
+        <input 
+            type="hidden"
+            [formControlName]="name"
+            [(ngModel)]="values" />
+
+    </span>
+
+</ng-container>

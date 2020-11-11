@@ -1,0 +1,54 @@
+<div class="panel-header panel-header-sm">
+</div>
+<div class="main-content">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-body">
+
+          <app-selectors #optionsScanner class="row p-3">
+            <app-selectors-case class="d-inline-block mr-3" label="Combo" name="combo" instances="1" selector="select" [container]="optionsScanner" [source]="sources.optionsCombos"></app-selectors-case>
+            <app-selectors-case class="d-inline-block mr-3" label="Symbols" name="symbols" instances="1" selector="input" [container]="optionsScanner" sensitive="1"></app-selectors-case>
+            <app-selectors-case class="d-inline-block mr-3" label="Start" name="start" instances="1" selector="date" [container]="optionsScanner"></app-selectors-case>
+            <app-selectors-case class="d-inline-block mr-3" label="Stop" name="stop" instances="1" selector="date" [container]="optionsScanner"></app-selectors-case>
+            <button class="btn mr-3" (click)="scan($event)">Scan <i *ngIf="loaders.optionsScanner" class="fa fa-cog fa-spin ml-2"></i></button>
+            <app-selectors-case class="d-inline-block mr-3" label="Update Cache" name="cache" instances="1" selector="checkbox" [container]="optionsScanner"></app-selectors-case>
+          </app-selectors>
+
+          <div class="alert alert-warning mt-4" *ngFor="let error of errors.optionsScanner">
+            {{ error }}
+          </div>
+
+          <div class="items-list" *ngIf="items.count">
+            <table class="table ml-1 mr-1">
+              <tr>
+                <th>Symbol</th>
+                <th>Debit</th>
+                <th>Credit</th>
+                <th>Distance</th>
+                <th>Position</th>
+                <th>Expiration</th>
+              </tr>
+              <tr *ngFor="let item of items.rows">
+                <td>{{ item.Symbol }}</td>
+                <td>{{ item.Debit }}</td>
+                <td>{{ item.Credit }}</td>
+                <td>{{ item.Distance }}</td>
+                <td>{{ item.Position }}</td>
+                <td>{{ item.Expiration }}</td>
+              </tr>
+            </table>
+
+            <app-pagination 
+              [itemsPage]="items.page" 
+              [itemsCount]="items.count" 
+              [itemsLimit]="items.limit" 
+              (onChangeEvent)="onPageChange($event)">
+            </app-pagination>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

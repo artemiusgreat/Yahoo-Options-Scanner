@@ -1,0 +1,1 @@
+mongod --port 6000 --dbpath ./

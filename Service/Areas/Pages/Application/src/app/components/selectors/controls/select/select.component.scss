@@ -1,0 +1,5 @@
+:host {
+    select.form-control:not([size]):not([multiple]) {
+        height: calc(2.55rem);
+    }
+}

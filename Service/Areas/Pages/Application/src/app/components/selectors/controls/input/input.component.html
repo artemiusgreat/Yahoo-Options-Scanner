@@ -1,0 +1,3 @@
+<ng-container [formGroup]="group">
+  <input class="form-control" (keyup.enter)="detectEnterChange($event)" (keyup)="detectChange($event)" [placeholder]="label" />
+</ng-container>

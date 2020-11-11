@@ -1,0 +1,10 @@
+﻿[
+  {
+    "outputFile": "Areas/View/Vendors/vue/theme.css",
+    "inputFile": "Areas/View/Vendors/vue/theme.scss"
+  },
+  {
+    "outputFile": "Areas/View/Vendors/vue/vue-material/dist/theme/prebuilt/default.css",
+    "inputFile": "Areas/View/Vendors/vue/vue-material/dist/theme/prebuilt/default.scss"
+  }
+]

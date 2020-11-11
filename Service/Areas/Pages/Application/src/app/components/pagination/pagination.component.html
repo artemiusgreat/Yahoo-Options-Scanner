@@ -1,0 +1,13 @@
+<div class="c-pagination btn-toolbar justify-content-end">
+  <div class="input-group-prepend">
+    <button (click)="onClick($event, 'start')" class="btn btn-outline-primary mr-1" type="button">&laquo;</button>
+    <button (click)="onClick($event, 'previous')" class="btn btn-outline-primary" type="button">&larr;</button>
+    <button class="btn btn-static" type="button">Page</button>
+  </div>
+  <input class="form-control d-inline" [value]="itemsPage" (keyup.enter)="onKey($event)" />  
+  <div class="input-group-append">
+    <button class="btn btn-static" type="button">of {{ getPageCount() }}</button>
+    <button (click)="onClick($event, 'next')" class="btn btn-outline-primary" type="button">&rarr;</button>
+    <button (click)="onClick($event, 'end')" class="btn btn-outline-primary ml-1" type="button">&raquo;</button>
+  </div>
+</div>
